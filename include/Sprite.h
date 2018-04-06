@@ -12,21 +12,27 @@
 #define INCLUDE_SDL
 
 #include <iostream>
-#include "SDL_include.h"
+#include "../include/SDL_include.h"
+#include "../include/Component.h"
+
 using namespace std;
 
-class Sprite{
+//class GameObject;
+
+class Sprite : public Component{
     
 public:
-    Sprite();
-    Sprite(string file);
+    Sprite(GameObject& associated);
+    Sprite( GameObject& associated, string file);
     ~Sprite();
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
-    void Render(int x, int y);
     int GetWidth();
     int GetHeight();
     bool IsOpen();
+    void Update(float dt);
+    void Render();
+    bool Is(string type);
     
 private:
     SDL_Texture* texture;

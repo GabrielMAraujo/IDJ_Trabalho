@@ -12,8 +12,8 @@
 #define INCLUDE_SDL
 
 #include <iostream>
-#include "SDL_include.h"
-#include "State.h"
+#include "../include/SDL_include.h"
+#include "../include/State.h"
 
 using namespace std;
 

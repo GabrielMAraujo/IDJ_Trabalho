@@ -6,14 +6,15 @@
 //  Copyright © 2018 Gabriel Mota Araújo. All rights reserved.
 //
 
-#include "Sprite.h"
-#include "Game.h"
+#include "../include/Sprite.h"
+#include "../include/Game.h"
 
-Sprite::Sprite(){
+Sprite::Sprite(GameObject& associated) : Component(associated){
+    
     texture = nullptr;
 }
 
-Sprite::Sprite(string file){
+Sprite::Sprite(GameObject& associated, string file) : Component(associated){
     cout << "Sprite::Sprite()" << endl;
     texture = nullptr;
     Open(file);
@@ -38,6 +39,8 @@ void Sprite::Open(string file){
     
     SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
     SetClip(0, 0, width, height);
+    associated.box.w = width;
+    associated.box.h = height;
 }
 
 void Sprite::SetClip(int x, int y, int w, int h){
@@ -45,12 +48,15 @@ void Sprite::SetClip(int x, int y, int w, int h){
     clipRect.y= y;
     clipRect.w = w;
     clipRect.h = h;
+    
+    associated.box.w = w;
+    associated.box.h = h;
 }
 
-void Sprite::Render(int x, int y){
+void Sprite::Render(){
     SDL_Rect dstrect;
-    dstrect.x = x;
-    dstrect.y = y;
+    dstrect.x = associated.box.x;
+    dstrect.y = associated.box.y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);
@@ -66,4 +72,17 @@ int Sprite::GetHeight(){
 
 bool Sprite::IsOpen(){
     return (texture != nullptr);
+}
+
+void Sprite:: Update(float dt){
+    
+}
+
+bool Sprite:: Is(string type){
+    if(type == "Sprite"){
+        return true;
+    }
+    else{
+        return false;
+    }
 }

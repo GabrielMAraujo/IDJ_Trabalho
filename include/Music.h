@@ -13,7 +13,7 @@
 #define INCLUDE_SDL
 
 #include <iostream>
-#include "SDL_include.h"
+#include "../include/SDL_include.h"
 using namespace std;
 
 class Music{

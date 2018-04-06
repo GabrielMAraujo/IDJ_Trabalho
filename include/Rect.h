@@ -6,6 +6,8 @@
 //  Copyright © 2018 Gabriel Mota Araújo. All rights reserved.
 //
 
+#pragma once
+
 class Rect{
     
 public:

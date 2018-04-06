@@ -6,7 +6,7 @@
 //  Copyright © 2018 Gabriel Mota Araújo. All rights reserved.
 //
 
-#include "Rect.h"
+#include "../include/Rect.h"
 
 
 Rect::Rect(){

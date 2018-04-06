@@ -7,7 +7,7 @@
 //
 
 #include <iostream>
-#include "Game.h"
+#include "../include/Game.h"
 
 int main(int argc, const char * argv[]) {
     // insert code here...

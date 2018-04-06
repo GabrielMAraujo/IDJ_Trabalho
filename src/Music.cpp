@@ -6,7 +6,7 @@
 //  Copyright © 2018 Gabriel Mota Araújo. All rights reserved.
 //
 
-#include "Music.h"
+#include "../include/Music.h"
 
 Music::Music(){
     music = nullptr;
