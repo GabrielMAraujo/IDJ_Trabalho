@@ -22,6 +22,7 @@
 #include "../include/Vec2.h"
 #include "../include/Math.h"
 #include "../include/Face.h"
+#include "../include/TileMap.h"
 
 using namespace std;
 

@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include "../include/Sound.h"
+#include "../include/Resources.h"
 
 Sound::Sound(GameObject& associated) : Component(associated){
     chunk = nullptr;
@@ -20,7 +21,7 @@ Sound::Sound(GameObject& associated, string file) : Sound(associated){
 Sound::~Sound(){
     if(chunk != nullptr){
         Mix_HaltChannel(channel);
-        Mix_FreeChunk(chunk);
+//        Mix_FreeChunk(chunk);
     }
 }
 
@@ -34,8 +35,13 @@ void Sound::Stop(){
     }
 }
 
+bool Sound::IsPlaying(){
+    return Mix_Playing(channel);
+}
+
 void Sound::Open(string file){
-    chunk = Mix_LoadWAV(file.c_str());
+//    chunk = Mix_LoadWAV(file.c_str());
+    chunk = Resources::GetSound(file);
     if(chunk == nullptr){
         printf("Erro no Mix_LoadWAV: %s\n", Mix_GetError());
     }

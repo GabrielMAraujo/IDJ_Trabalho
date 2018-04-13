@@ -18,7 +18,8 @@ GameObject::GameObject(){
 
 GameObject::~GameObject(){
     for(int i = (int)components.size(); i > 0; i--){
-        components.erase(components.begin() + (i - 1));
+//        components.erase(components.begin() + (i - 1));
+        delete components[i];
     }
     components.clear();
 }

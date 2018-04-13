@@ -21,17 +21,18 @@ Sprite::Sprite(GameObject& associated, string file) : Component(associated){
 }
 
 Sprite::~Sprite(){
-    if(texture != nullptr){
-        SDL_DestroyTexture(texture);
-    }
+//    if(texture != nullptr){
+//        SDL_DestroyTexture(texture);
+//    }
 }
 
 void Sprite::Open(string file){
-    if(texture != nullptr){
-        SDL_DestroyTexture(texture);
-    }
+//    if(texture != nullptr){
+//        SDL_DestroyTexture(texture);
+//    }
 
-    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+//    texture = IMG_LoadTexture(Game::GetInstance().GetRenderer(), file.c_str());
+    texture = Resources::GetImage(file);
     
     if(texture == nullptr){
         cout << "Erro no carregamento de textura do tipo " << SDL_GetError() << endl;
@@ -57,6 +58,15 @@ void Sprite::Render(){
     SDL_Rect dstrect;
     dstrect.x = associated.box.x;
     dstrect.y = associated.box.y;
+    dstrect.w = clipRect.w;
+    dstrect.h = clipRect.h;
+    SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);
+}
+
+void Sprite::Render(int x, int y){
+    SDL_Rect dstrect;
+    dstrect.x = x;
+    dstrect.y = y;
     dstrect.w = clipRect.w;
     dstrect.h = clipRect.h;
     SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);

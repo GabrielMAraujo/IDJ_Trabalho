@@ -19,6 +19,12 @@ void Face::Damage(int damage){
     if(hitpoints <= 0){
         associated.RequestDelete();
         ((Sound*)associated.GetComponent("Sound"))->Play();
+        
+        Sprite *s = (Sprite*) associated.GetComponent("Sprite");
+        if(s){
+            associated.RemoveComponent(s);
+        }
+        associated.RemoveComponent(this);
     }
 }
 

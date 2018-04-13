@@ -11,6 +11,7 @@
 #include <string>
 #include "../include/GameObject.h"
 #include "../include/Sound.h"
+#include "../include/Sprite.h"
 
 using namespace std;
 

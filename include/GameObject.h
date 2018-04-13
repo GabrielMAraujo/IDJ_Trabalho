@@ -13,10 +13,13 @@
 #include <vector>
 #include "../include/Component.h"
 #include "../include/Rect.h"
+//#include "../include/Sound.h"
 
 using namespace std;
 
 class Component;
+
+//class Sound;
 
 class GameObject{
 public:

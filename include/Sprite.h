@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../include/SDL_include.h"
 #include "../include/Component.h"
+#include "../include/Resources.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ public:
     bool IsOpen();
     void Update(float dt);
     void Render();
+    void Render(int x, int y);
     bool Is(string type);
     
 private:

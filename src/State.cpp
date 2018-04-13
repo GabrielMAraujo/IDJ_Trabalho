@@ -34,6 +34,14 @@ void State::LoadAssets(){
     objectArray.emplace_back(bg);
     
     music.Open("assets/audio/stageState.ogg");
+    
+    GameObject* goTileMap = new GameObject();
+    goTileMap->box.x = goTileMap->box.y = 0;
+    TileSet* tileSet = new TileSet(64, 64, "assets/img/tileset.png", *goTileMap);
+    TileMap* tileMap = new TileMap(*goTileMap, "assets/map/tileMap.txt", tileSet);
+    
+    goTileMap->AddComponent(tileMap);
+    objectArray.emplace_back(goTileMap);
 }
 
 void State::Update(float dt){
@@ -47,7 +55,16 @@ void State::Update(float dt){
 //        cout << i << endl;
         if(objectArray[i]->IsDead()){
 //            cout << "Sprite: " << objectArray[i]->GetComponent("Sprite") << endl;;
-            objectArray.erase(objectArray.begin() + i);
+            Sound *s = (Sound*) objectArray[i]->GetComponent("Sound");
+            if(s){
+                if(!(s->IsPlaying())){
+                    objectArray.erase(objectArray.begin() + i);
+                }
+                else{
+                    objectArray.erase(objectArray.begin() + i);
+                }
+            }
+            
         }
     }
     

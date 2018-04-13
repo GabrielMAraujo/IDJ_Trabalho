@@ -7,6 +7,7 @@
 //
 
 #include "../include/Music.h"
+#include "../include/Resources.h"
 
 Music::Music(){
     music = nullptr;
@@ -26,7 +27,8 @@ void Music::Stop(int msToStop = 1500){
 }
 
 void Music::Open(string file){
-    music = Mix_LoadMUS(file.c_str());
+//    music = Mix_LoadMUS(file.c_str());
+    music = Resources::GetMusic(file);
     if(music == nullptr){
         cout << "Erro ao carregar música do tipo " << SDL_GetError() << endl;
     }
@@ -42,5 +44,5 @@ bool Music::IsOpen(){
 
 Music::~Music(){
     Stop();
-    Mix_FreeMusic(music);
+//    Mix_FreeMusic(music);
 }
