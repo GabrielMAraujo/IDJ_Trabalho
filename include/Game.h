@@ -14,6 +14,7 @@
 #include <iostream>
 #include "../include/SDL_include.h"
 #include "../include/State.h"
+#include "../include/InputManager.h"
 
 using namespace std;
 
@@ -25,6 +26,9 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     State* state;
+    int frameStart;
+    float dt;
+    void CalculateDeltaTime();
     
     //Funções
     
@@ -37,4 +41,5 @@ public:
     State& GetState();
     static Game& GetInstance();
     ~Game();
+    float GetDeltaTime();
 };

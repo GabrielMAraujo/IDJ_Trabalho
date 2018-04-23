@@ -23,6 +23,8 @@
 #include "../include/Math.h"
 #include "../include/Face.h"
 #include "../include/TileMap.h"
+#include "../include/Camera.h"
+#include "../include/CameraFollower.h"
 
 using namespace std;
 

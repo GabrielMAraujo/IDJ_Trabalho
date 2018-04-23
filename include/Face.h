@@ -12,6 +12,9 @@
 #include "../include/GameObject.h"
 #include "../include/Sound.h"
 #include "../include/Sprite.h"
+#include "../include/InputManager.h"
+#include "../include/Math.h"
+#include "../include/Camera.h"
 
 using namespace std;
 

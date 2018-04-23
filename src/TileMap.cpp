@@ -8,6 +8,7 @@
 
 
 #include "../include/TileMap.h"
+#include "../include/Camera.h"
 
 TileMap::TileMap(GameObject& associated, string file, TileSet* tileSet) : Component(associated){
     Load(file);
@@ -50,15 +51,17 @@ int& TileMap::At(int x, int y, int z){
 }
 
 void TileMap::Render(){
+//    cout << "camera: " <<Camera::pos.x << " " << Camera::pos.y << endl;
+//    Vec2 parallaxSpeed = Camera::speed * 2;
     for(int i = 0; i < mapDepth; i++){
-        RenderLayer(i);
+        RenderLayer(i, Camera::pos.x*(i+1) , Camera::pos.y*(i+1));
     }
 }
 
 void TileMap::RenderLayer(int layer, int cameraX, int cameraY){
     for(int y = 0; y < mapHeight; y++){
         for(int x = 0; x < mapWidth; x++){
-            tileSet->RenderTile(At(x,y,layer),  cameraX+ x*tileSet->GetTileWidth(), cameraY + y*tileSet->GetTileHeight());
+            tileSet->RenderTile(At(x,y,layer),  -cameraX + x*tileSet->GetTileWidth(), -cameraY + y*tileSet->GetTileHeight());
         }
     }
 }

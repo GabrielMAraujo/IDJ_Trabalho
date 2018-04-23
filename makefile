@@ -15,7 +15,7 @@ all: $(OBJ)
 	$(CC) $(OBJ) $(LFLAGS)  $(CFLAGS) -o $(EXECNAME) -g -ggdb
 
 %.o: $(patsubst $(OBJDIR)/%.o, $(SRCDIR)/%.cpp, $@)
-	$(CC) -c $(patsubst $(OBJDIR)/%.o, $(SRCDIR)/%.cpp, $@) -o $@ -g -ggdb
+	$(CC) -c $(CFLAGS) $(patsubst $(OBJDIR)/%.o, $(SRCDIR)/%.cpp, $@) -o $@ -g -ggdb
 
 clean:
 	rm -f $(OBJ) *~

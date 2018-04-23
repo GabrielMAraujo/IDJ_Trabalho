@@ -29,11 +29,17 @@ void Face::Damage(int damage){
 }
 
 void Face::Update(float dt){
-    
+    if(InputManager::GetInstance().MousePress(LEFT_MOUSE_BUTTON)){
+        int mouseX = InputManager::GetInstance().GetMouseX() + Camera::pos.x;
+        int mouseY = InputManager::GetInstance().GetMouseY() + Camera::pos.y;
+        if(Math::RectContains(associated.box, Vec2((float)mouseX, (float)mouseY))){
+            Damage(std::rand() % 10 + 10);
+        }
+    }
 }
 
 void Face::Render(){
-    
+    ((Sprite*)associated.GetComponent("Sprite"))->Render(associated.box.x - Camera::pos.x, associated.box.y - Camera::pos.y);
 }
 
 bool Face::Is(string type){

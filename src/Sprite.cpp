@@ -55,12 +55,14 @@ void Sprite::SetClip(int x, int y, int w, int h){
 }
 
 void Sprite::Render(){
-    SDL_Rect dstrect;
-    dstrect.x = associated.box.x;
-    dstrect.y = associated.box.y;
-    dstrect.w = clipRect.w;
-    dstrect.h = clipRect.h;
-    SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);
+    if(associated.GetComponent("Face") == nullptr){
+        SDL_Rect dstrect;
+        dstrect.x = associated.box.x;
+        dstrect.y = associated.box.y;
+        dstrect.w = clipRect.w;
+        dstrect.h = clipRect.h;
+        SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &dstrect);
+    }
 }
 
 void Sprite::Render(int x, int y){

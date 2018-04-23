@@ -29,7 +29,7 @@ Game::Game(string title, int width, int height){
     }
     
     //Init de áudio
-    Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG | MIX_INIT_MID);
+    Mix_Init(MIX_INIT_MP3 | MIX_INIT_OGG);
     if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) != 0){
         cout << "Erro ao abrir áudio" << endl;
     }
@@ -47,6 +47,8 @@ Game::Game(string title, int width, int height){
     }
     
     state = new State();
+    dt = 0;
+    frameStart = 0;
 }
 
 Game::~Game(){
@@ -63,6 +65,8 @@ Game::~Game(){
 void Game::Run(){
     GetState().LoadAssets();
     while(!state->QuitRequested()){
+        CalculateDeltaTime();
+        InputManager::GetInstance().Update();
         state->Update(0.033);// 1/30 = 0.033
 //        SDL_RenderClear(renderer);
         state->Render();
@@ -90,3 +94,15 @@ Game& Game::GetInstance(){
     return *instance;
 }
 
+void Game::CalculateDeltaTime(){
+    
+    dt = (float(SDL_GetTicks()) / 1000) - (float(frameStart) / 1000);
+    
+//    cout << (float(SDL_GetTicks()) / 1000) << endl;
+//    cout << "dt: " << dt << endl;
+    frameStart = SDL_GetTicks();
+}
+
+float Game::GetDeltaTime(){
+    return dt;
+}
