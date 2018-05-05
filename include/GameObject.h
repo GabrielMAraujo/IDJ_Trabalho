@@ -21,7 +21,7 @@ class Component;
 
 //class Sound;
 
-class GameObject{
+class GameObject : public enable_shared_from_this<GameObject>{
 public:
     GameObject();
     ~GameObject();
@@ -32,7 +32,11 @@ public:
     void AddComponent(Component *cpt);
     void RemoveComponent(Component *cpt);
     Component* GetComponent(string type);
+    void Start();
+    
     Rect box;
+    bool started;
+    double angleDeg;
     
 private:
     vector<Component*> components;

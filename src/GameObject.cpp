@@ -14,12 +14,14 @@ using namespace std;
 
 GameObject::GameObject(){
     isDead = false;
+    started = false;
+    angleDeg = 0;
 }
 
 GameObject::~GameObject(){
     for(int i = (int)components.size(); i > 0; i--){
-//        components.erase(components.begin() + (i - 1));
-        delete components[i];
+        components.erase(components.begin() + (i - 1));
+        delete components[i-1];
     }
     components.clear();
 }
@@ -46,6 +48,9 @@ void GameObject::RequestDelete(){
 
 void GameObject::AddComponent(Component *cpt){
     components.emplace_back(cpt);
+    if(started){
+        cpt->Start();
+    }
 }
 
 void GameObject::RemoveComponent(Component *cpt){
@@ -63,4 +68,11 @@ Component* GameObject::GetComponent(string type){
         }
     }
     return nullptr;
+}
+
+void GameObject::Start(){
+    for(int i = 0; i < components.size(); i++){
+        components[i]->Start();
+    }
+    started = true;
 }

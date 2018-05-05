@@ -13,6 +13,7 @@ State::State(){
     cout << "State::State()" << endl;
     quitRequested = false;
     music = Music();
+    started = false;
 }
 
 State::~State(){
@@ -31,12 +32,15 @@ void State::LoadAssets(){
     GameObject* bg = new GameObject();
     Sprite* sp = new Sprite(*bg, "assets/img/ocean.jpg");
     bg->AddComponent(sp);
+    CameraFollower *cf = new CameraFollower(*bg);
+    bg->AddComponent(cf);
+    
     objectArray.emplace_back(bg);
     
     //Declaração para player futuro
-    GameObject* player = new GameObject();
-    CameraFollower *cf = new CameraFollower(*player);
-    player->AddComponent(cf);
+//    GameObject* player = new GameObject();
+//    CameraFollower *cf = new CameraFollower(*player);
+//    player->AddComponent(cf);
     
     music.Open("assets/audio/stageState.ogg");
     
@@ -47,6 +51,13 @@ void State::LoadAssets(){
     
     goTileMap->AddComponent(tileMap);
     objectArray.emplace_back(goTileMap);
+    
+    GameObject* goAlien = new GameObject();
+    goAlien->box.x = 512;
+    goAlien->box.y = 300;
+    Alien* a = new Alien(*goAlien, 10);
+    goAlien->AddComponent(a);
+    objectArray.emplace_back(goAlien);
 }
 
 void State::Update(float dt){
@@ -57,14 +68,14 @@ void State::Update(float dt){
         quitRequested = true;
     }
     
-    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
-        //Criar face
-        int mouseX = InputManager::GetInstance().GetMouseX();
-        int mouseY = InputManager::GetInstance().GetMouseY();
-        Vec2 objPos;
-        objPos = Math::Vec2Rotate((-PI + PI*(rand() % 1001)/500.0 ), Vec2( 200, 0 )) + Vec2( mouseX, mouseY);
-        AddObject((int)objPos.x + Camera::pos.x, (int)objPos.y + Camera::pos.y);
-    }
+//    if(InputManager::GetInstance().KeyPress(SDLK_SPACE)){
+//        //Criar face
+//        int mouseX = InputManager::GetInstance().GetMouseX();
+//        int mouseY = InputManager::GetInstance().GetMouseY();
+//        Vec2 objPos;
+//        objPos = Math::Vec2Rotate((-PI + PI*(rand() % 1001)/500.0 ), Vec2( 200, 0 )) + Vec2( mouseX, mouseY);
+//        AddObject((int)objPos.x + Camera::pos.x, (int)objPos.y + Camera::pos.y);
+//    }
     
     for(int i = 0; i < objectArray.size(); i++){
         objectArray[i]->Update(dt);
@@ -172,6 +183,23 @@ void State::AddObject(int mouseX, int mouseY){
     Face* f = new Face(*go);
     go->AddComponent(f);
     objectArray.emplace_back(go);
+}
+
+void State::Start(){
+    
+    LoadAssets();
+    for(int i = 0; i < objectArray.size(); i++){
+        objectArray[i]->Start();
+    }
+    started = true;
+    
+}
+
+void State::AddObject(GameObject* go){
+    objectArray.emplace_back(go);
+    if(started){
+        go->Start();
+    }
 }
 
 

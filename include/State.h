@@ -11,7 +11,7 @@
 #define INCLUDE_SDL_MIXER
 #define INCLUDE_SDL
 
-#define PI 3.14159265
+//#define PI 3.14159265
 
 #include <iostream>
 #include <memory>
@@ -25,6 +25,7 @@
 #include "../include/TileMap.h"
 #include "../include/Camera.h"
 #include "../include/CameraFollower.h"
+#include "../include/Alien.h"
 
 using namespace std;
 
@@ -37,11 +38,14 @@ public:
     void LoadAssets();
     void Update(float dt);
     void Render();
+    void Start();
+    void AddObject(GameObject* go);
     
 private:
     Music music;
     bool quitRequested;
-    std::vector<std::unique_ptr<GameObject> > objectArray;
+    vector<unique_ptr<GameObject>> objectArray;
+    bool started;
     
     void Input();
     void AddObject(int mouseX, int mouseY);

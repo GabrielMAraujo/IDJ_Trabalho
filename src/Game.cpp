@@ -63,7 +63,8 @@ Game::~Game(){
 }
     
 void Game::Run(){
-    GetState().LoadAssets();
+//    GetState().LoadAssets();
+    GetState().Start();
     while(!state->QuitRequested()){
         CalculateDeltaTime();
         InputManager::GetInstance().Update();

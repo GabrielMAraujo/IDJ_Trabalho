@@ -15,6 +15,7 @@
 #include "../include/SDL_include.h"
 #include "../include/Component.h"
 #include "../include/Resources.h"
+#include "../include/Vec2.h"
 
 using namespace std;
 
@@ -35,11 +36,13 @@ public:
     void Render();
     void Render(int x, int y);
     bool Is(string type);
+    void SetScaleX(float scaleX, float scaleY);
+    Vec2 GetScale();
     
 private:
     SDL_Texture* texture;
     int width;
     int height;
     SDL_Rect clipRect;
-    
+    Vec2 scale;
 };

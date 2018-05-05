@@ -44,19 +44,21 @@ Vec2 Math::Vec2Normalized(Vec2 v1){
 float Math::Vec2Dist(Vec2 v1, Vec2 v2){
     Vec2 v3;
     v3.x = v2.x - v1.x;
-    v3.y = v2.y - v2.x;
+    v3.y = v2.y - v2.y;
     return Vec2Module(v3);
 }
 
 float Math::Vec2InclinationX(Vec2 v1){
-    return atan2(v1.y, v1.x) * 180 / 3.14;
+//    return atan2(v1.y, v1.x) * 180 / 3.14;
+    return atan2(v1.y, v1.x);
 }
 
 float Math::Vec2LineInclinationX(Vec2 v1, Vec2 v2){
     float incX = v2.x - v1.x;
     float incY = v2.y - v1.y;
     
-    return atan2(incY, incX) * 180 / 3.14;
+//    return atan2(incY, incX) * 180 / 3.14;
+    return atan2(incY, incX);
 }
 
 Vec2 Math::Vec2Rotate(float angle, Vec2 v1){
