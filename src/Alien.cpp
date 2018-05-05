@@ -42,7 +42,7 @@ void Alien::Update(float dt){
     if(InputManager::GetInstance().MousePress(SDL_BUTTON_LEFT)){
         //Tiro
         cout << "atira"<< endl;
-        Action a1 = Action(Action::SHOOT, InputManager::GetInstance().GetMouseX(), InputManager::GetInstance().GetMouseY());
+        Action a1 = Action(Action::SHOOT, InputManager::GetInstance().GetMouseX() + Camera::pos.x, InputManager::GetInstance().GetMouseY() + Camera::pos.y);
         taskQueue.push(a1);
     }
     
@@ -79,6 +79,7 @@ void Alien::Update(float dt){
             
             int random = rand() % (int)minionArray.size();
             Minion* m = (Minion*)minionArray[random]->GetComponent("Minion");
+            
             m->Shoot(taskQueue.front().pos);
             
             taskQueue.pop();
