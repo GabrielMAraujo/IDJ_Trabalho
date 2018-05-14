@@ -169,6 +169,7 @@ void Alien::NotifyCollision(GameObject& other){
                 goExplosao->AddComponent(s);
                 
                 Game::GetInstance().GetState().AddObject(goExplosao);
+                s->Play();
                 
                 associated.RequestDelete();
             }

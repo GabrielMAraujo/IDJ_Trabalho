@@ -19,6 +19,7 @@ Sound::Sound(GameObject& associated, string file) : Sound(associated){
 }
 
 Sound::~Sound(){
+    cout << "destruiu";
     if(chunk != nullptr){
         Mix_HaltChannel(channel);
 //        Mix_FreeChunk(chunk);
@@ -27,6 +28,7 @@ Sound::~Sound(){
 
 void Sound::Play(int times){
     channel = Mix_PlayChannel(-1, chunk, times - 1);
+    cout << "tocou";
 }
 
 void Sound::Stop(){

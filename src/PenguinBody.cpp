@@ -110,6 +110,7 @@ void PenguinBody::NotifyCollision(GameObject& other){
                 goExplosao->box = associated.box;
                 
                 Game::GetInstance().GetState().AddObject(goExplosao);
+                s->Play();
                 
                 associated.RequestDelete();
                 Camera::Unfollow();
