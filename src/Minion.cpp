@@ -19,6 +19,9 @@ Minion::Minion(GameObject& associated, GameObject& alienCenter, float arcOffsetD
     
     associated.AddComponent(sp);
     
+    Collider* c = new Collider(associated);
+    associated.AddComponent(c);
+    
     
     
     arc = arcOffsetDeg * PI / 180;
@@ -53,13 +56,13 @@ bool Minion::Is(string type){
 }
 
 void Minion::Shoot(Vec2 target){
-    cout<<"shoot";
+
     float angulo = Math::Vec2LineInclinationX(Math::RectCenter(associated.box), target);
     
     GameObject* goBullet = new GameObject();
     goBullet->box.x = associated.box.x + (associated.box.w / 2);
     goBullet->box.y = associated.box.y + (associated.box.h / 2);
-    Bullet* b = new Bullet(*goBullet, angulo , 500, 10, 500, "assets/img/minionbullet1.png");
+    Bullet* b = new Bullet(*goBullet, angulo , 500, 10, 500, "assets/img/minionbullet2.png", 3, 0.2, true);
     goBullet->AddComponent(b);
     Game::GetInstance().GetState().AddObject(goBullet);
 }

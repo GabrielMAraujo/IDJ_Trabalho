@@ -16,6 +16,7 @@
 #include "../include/Component.h"
 #include "../include/Resources.h"
 #include "../include/Vec2.h"
+#include "../include/Timer.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ class Sprite : public Component{
     
 public:
     Sprite(GameObject& associated);
-    Sprite( GameObject& associated, string file);
+    Sprite( GameObject& associated, string file, int frameCount = 1, float frameTime = 1, float secondsToSelfDestruct = 0);
     ~Sprite();
     void Open(string file);
     void SetClip(int x, int y, int w, int h);
@@ -38,6 +39,9 @@ public:
     bool Is(string type);
     void SetScaleX(float scaleX, float scaleY);
     Vec2 GetScale();
+    void SetFrame(int frame);
+    void SetFrameCount(int frameCount);
+    void SetFrameTime(int frameTime);
     
 private:
     SDL_Texture* texture;
@@ -45,4 +49,11 @@ private:
     int height;
     SDL_Rect clipRect;
     Vec2 scale;
+    int frameCount;
+    int currentFrame;
+    float timeElapsed;
+    float frameTime;
+    Timer* selfDestructCount;
+    float secondsToSelfDestruct;
+    
 };

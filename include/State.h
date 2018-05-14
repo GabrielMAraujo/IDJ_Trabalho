@@ -26,6 +26,8 @@
 #include "../include/Camera.h"
 #include "../include/CameraFollower.h"
 #include "../include/Alien.h"
+#include "../include/PenguinBody.h"
+#include "../include/Collision.h"
 
 using namespace std;
 

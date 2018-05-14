@@ -18,6 +18,7 @@
 #include "../include/Sprite.h"
 #include "../include/Bullet.h"
 #include "../include/Math.h"
+#include "../include/Collider.h"
 
 #include <iostream>
 

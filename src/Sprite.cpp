@@ -14,11 +14,20 @@ Sprite::Sprite(GameObject& associated) : Component(associated){
     texture = nullptr;
 }
 
-Sprite::Sprite(GameObject& associated, string file) : Component(associated){
+Sprite::Sprite( GameObject& associated, string file, int frameCount, float frameTime, float secondsToSelfDestruct) : Component(associated){
     cout << "Sprite::Sprite()" << endl;
     texture = nullptr;
     Open(file);
     scale = Vec2(1,1);
+    this->frameCount = frameCount;
+    this->frameTime = frameTime;
+    this->secondsToSelfDestruct = secondsToSelfDestruct;
+    if(secondsToSelfDestruct > 0){
+        selfDestructCount = new Timer(associated);
+        associated.AddComponent(selfDestructCount);
+    }
+    
+    SetFrame(currentFrame);
 }
 
 Sprite::~Sprite(){
@@ -76,7 +85,7 @@ void Sprite::Render(int x, int y){
 }
 
 int Sprite::GetWidth(){
-    return width * scale.x;
+    return (width / frameCount) * scale.x;
 }
 
 int Sprite::GetHeight(){
@@ -88,7 +97,26 @@ bool Sprite::IsOpen(){
 }
 
 void Sprite:: Update(float dt){
+    timeElapsed += dt;
+    if(timeElapsed >= frameTime){
+        timeElapsed = 0;
+        currentFrame++;
+        
+        if(currentFrame >= frameCount){
+            currentFrame = 0;
+        }
+        SetFrame(currentFrame);
+    }
     
+    
+    
+    if(secondsToSelfDestruct > 0){
+        
+        if (selfDestructCount->Get() >= secondsToSelfDestruct) {
+            associated.RequestDelete();
+        }
+        
+    }
 }
 
 bool Sprite:: Is(string type){
@@ -120,4 +148,27 @@ void Sprite::SetScaleX(float scaleX, float scaleY){
 
 Vec2 Sprite::GetScale(){
     return scale;
+}
+
+
+void Sprite::SetFrame(int frame){
+    currentFrame = frame;
+    SetClip((width / (frameCount)) * currentFrame, 0, (width / frameCount), height);
+}
+
+void Sprite::SetFrameCount(int frameCount){
+    this->frameCount = frameCount;
+    currentFrame = 0;
+    
+    SDL_QueryTexture(texture, nullptr, nullptr, &width, &height);
+    SetClip(0, 0, width, height);
+    associated.box.w = width;
+    associated.box.h = height;
+    
+    SetFrame(currentFrame);
+}
+
+
+void Sprite::SetFrameTime(int frameTime){
+    this->frameTime = frameTime;
 }

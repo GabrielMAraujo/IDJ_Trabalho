@@ -9,6 +9,8 @@
 #include "../include/State.h"
 #include "../include/Game.h"
 
+vector<GameObject*> collidingGOs;
+
 State::State(){
     cout << "State::State()" << endl;
     quitRequested = false;
@@ -55,9 +57,17 @@ void State::LoadAssets(){
     GameObject* goAlien = new GameObject();
     goAlien->box.x = 512;
     goAlien->box.y = 300;
-    Alien* a = new Alien(*goAlien, 10);
+    Alien* a = new Alien(*goAlien, 5);
     goAlien->AddComponent(a);
     objectArray.emplace_back(goAlien);
+    
+    GameObject* goPB = new GameObject();
+    goPB->box.x = 704;
+    goPB->box.y = 640;
+    PenguinBody* pb = new PenguinBody(*goPB);
+    goPB->AddComponent(pb);
+    Camera::Follow(goPB);
+    objectArray.emplace_back(goPB);
 }
 
 void State::Update(float dt){
@@ -77,8 +87,27 @@ void State::Update(float dt){
 //        AddObject((int)objPos.x + Camera::pos.x, (int)objPos.y + Camera::pos.y);
 //    }
     
+    collidingGOs.clear();
+    
     for(int i = 0; i < objectArray.size(); i++){
         objectArray[i]->Update(dt);
+        
+        
+        
+        if(objectArray[i]->GetComponent("Collider") != nullptr){
+            
+//            cout << i << endl;
+            
+            for(int j = 0; j < collidingGOs.size(); j++){
+                if(Collision::IsColliding(objectArray[i]->box, collidingGOs[j]->box, objectArray[i]->angleDeg, collidingGOs[j]->angleDeg)){
+                    objectArray[i]->NotifyCollision(*collidingGOs[j]);
+                    collidingGOs[j]->NotifyCollision(*objectArray[i]);
+//                    cout << "colisao boa" << endl;
+                }
+            }
+            
+            collidingGOs.emplace_back(objectArray[i].get());
+        }
     }
     
     for(int i = (int)objectArray.size() - 1; i >= 0; i--){
@@ -90,10 +119,12 @@ void State::Update(float dt){
                 if(!(s->IsPlaying())){
                     objectArray.erase(objectArray.begin() + i);
                 }
-                else{
-                    objectArray.erase(objectArray.begin() + i);
-                }
+                
             }
+            else{
+                objectArray.erase(objectArray.begin() + i);
+            }
+            
             
         }
     }

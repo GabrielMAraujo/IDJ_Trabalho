@@ -9,9 +9,12 @@
 #include "../include/Bullet.h"
 
 
-Bullet::Bullet(GameObject& associated, float angle, float speed, int damage, float maxDistance, string sprite) : Component(associated){
-    Sprite* sp = new Sprite(associated, sprite);
+Bullet::Bullet(GameObject& associated, float angle, float speed, int damage, float maxDistance, string sprite, int frameCount, float frameTime, bool targetsPlayer) : Component(associated){
+    Sprite* sp = new Sprite(associated, sprite, frameCount, frameTime);
     associated.AddComponent(sp);
+    
+    Collider* c = new Collider(associated);
+    associated.AddComponent(c);
     
     this->speed = Vec2(speed * cos(angle), speed * sin(angle));
     
@@ -19,6 +22,8 @@ Bullet::Bullet(GameObject& associated, float angle, float speed, int damage, flo
     distanceLeft = maxDistance;
     
     associated.angleDeg = Math::Vec2InclinationX(this->speed) * (180/PI);
+    
+    this->targetsPlayer = targetsPlayer;
 }
 
 void Bullet::Update(float dt){
@@ -51,4 +56,8 @@ bool Bullet::Is(string type){
 
 int Bullet::GetDamage(){
     return damage;
+}
+
+void Bullet::NotifyCollision(GameObject& other){
+
 }

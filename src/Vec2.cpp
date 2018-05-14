@@ -24,3 +24,7 @@ Vec2 Vec2::operator+(Vec2 right){
 Vec2 Vec2::operator-(Vec2 right){
     return Vec2(this->x - right.x, this->y - right.y);
 }
+
+Vec2 Vec2::operator*(const float rhs) const{
+    return Vec2(x * rhs, y * rhs);
+ }

@@ -16,6 +16,7 @@ public:
     Vec2(float x1, float y1);
     Vec2 operator+(Vec2 right);
     Vec2 operator-(Vec2 right);
+    Vec2 operator*(const float rhs) const;
     
 private:
     
