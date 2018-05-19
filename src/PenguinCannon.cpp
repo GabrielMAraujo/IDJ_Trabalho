@@ -72,7 +72,7 @@ void PenguinCannon::Shoot(){
         
         Bullet* b = new Bullet(*goBullet, associated.angleDeg * (PI / 180) , 500, 10, 500, "assets/img/penguinbullet.png", 4, 0.2, false);
         goBullet->AddComponent(b);
-        Game::GetInstance().GetState().AddObject(goBullet);
+        Game::GetInstance().GetCurrentState().AddObject(goBullet);
         
     }
 }

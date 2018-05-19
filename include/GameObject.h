@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <memory>
 #include "../include/Component.h"
 #include "../include/Rect.h"
 //#include "../include/Sound.h"

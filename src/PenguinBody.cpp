@@ -41,7 +41,7 @@ void PenguinBody::Start(){
     
     pcannon = goCannon;
     
-    Game::GetInstance().GetState().AddObject(goCannon);
+    Game::GetInstance().GetCurrentState().AddObject(goCannon);
 }
 
 void PenguinBody::Update(float dt){
@@ -109,11 +109,14 @@ void PenguinBody::NotifyCollision(GameObject& other){
                 goExplosao->AddComponent(s);
                 goExplosao->box = associated.box;
                 
-                Game::GetInstance().GetState().AddObject(goExplosao);
+                Game::GetInstance().GetCurrentState().AddObject(goExplosao);
                 s->Play();
                 
                 associated.RequestDelete();
                 Camera::Unfollow();
+                
+                Game::GetInstance().GetCurrentState().PopRequested();
+                Game::GetInstance().AddEndState();
             }
             
         }

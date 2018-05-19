@@ -11,6 +11,7 @@
 #define INCLUDE_SDL_IMAGE
 #define INCLUDE_SDL_MIXER
 #define INCLUDE_SDL
+#define INCLUDE_SDL_TTF
 
 #include "../include/SDL_include.h"
 #include <iostream>
@@ -30,9 +31,13 @@ public:
     static Mix_Chunk* GetSound(string file);
     static void ClearSounds();
     
+    static TTF_Font* GetFont(string file, int ptsize);
+    static void ClearFonts();
+    
 private:
     static unordered_map<string, SDL_Texture*> imageTable;
     static unordered_map<string, Mix_Music*> musicTable;
     static unordered_map<string, Mix_Chunk*> soundTable;
+    static unordered_map<string, TTF_Font*> fontTable;
     
 };

@@ -64,7 +64,7 @@ void Minion::Shoot(Vec2 target){
     goBullet->box.y = associated.box.y + (associated.box.h / 2);
     Bullet* b = new Bullet(*goBullet, angulo , 500, 10, 500, "assets/img/minionbullet2.png", 3, 0.2, true);
     goBullet->AddComponent(b);
-    Game::GetInstance().GetState().AddObject(goBullet);
+    Game::GetInstance().GetCurrentState().AddObject(goBullet);
 }
 
 void Minion::Start(){

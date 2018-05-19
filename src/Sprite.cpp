@@ -102,7 +102,7 @@ void Sprite:: Update(float dt){
         timeElapsed = 0;
         currentFrame++;
         
-        if(currentFrame >= frameCount){
+        if((currentFrame >= frameCount) && (secondsToSelfDestruct == 0)){
             currentFrame = 0;
         }
         SetFrame(currentFrame);

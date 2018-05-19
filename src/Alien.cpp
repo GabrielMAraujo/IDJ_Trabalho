@@ -41,7 +41,7 @@ void Alien::Start(){
         GameObject* goMinion = new GameObject();
         Minion* m = new Minion(*goMinion, associated, i * (360 / 5));
         goMinion->AddComponent(m);
-        Game::GetInstance().GetState().AddObject(goMinion);
+        Game::GetInstance().GetCurrentState().AddObject(goMinion);
         minionArray.emplace_back(goMinion);
     }
 }
@@ -168,10 +168,13 @@ void Alien::NotifyCollision(GameObject& other){
                 Sound* s = new Sound(*goExplosao, "assets/audio/boom.wav");
                 goExplosao->AddComponent(s);
                 
-                Game::GetInstance().GetState().AddObject(goExplosao);
+                Game::GetInstance().GetCurrentState().AddObject(goExplosao);
                 s->Play();
                 
                 associated.RequestDelete();
+                
+                GameData::playerVictory = true;
+                Game::GetInstance().AddEndState();
             }
         }
     }

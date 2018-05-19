@@ -19,6 +19,7 @@
 #include "../include/Minion.h"
 #include "../include/State.h"
 #include "../include/Collider.h"
+#include "../include/GameData.h"
 
 #include <cstdlib>
 #include <iostream>
